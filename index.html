@@ -6,14 +6,150 @@
 			document.addEventListener("DOMContentLoaded", function () {
 				"use strict";
 				
+				let alcohols = [
+					"Gin (Broker's)\t47%",
+					"Maraschino Liqueur\t32%",
+					"Crème de Violette\t20%",
+					"St-Germain\t20%",
+					"Green Chartreuse\t55%",
+					"White Rum\t40%",
+					"Dark Rum\t40%",
+					"Blackstrap Rum\t40%",
+					"Chambord\t16.5%",
+					"Blanco Tequila\t40%",
+					"Reposado Tequila\t40%",
+					"Cointreau\t40%",
+					"Vodka\t40%",
+					"Kahlua\t20%",
+					"Rye Whiskey (Rittenhouse)\t50%",
+					"Rye Whiskey (Bulleit)\t45%",
+					"Bénédictine\t40%",
+					"Sweet Vermouth\t16.5%",
+					"Bourbon\t45%",
+					"Cherry Liqueur\t24%",
+					"Amaretto\t24%",
+					"Dry Vermouth\t17.5%",
+					"Campari\t24%",
+					"Blue Curaçao\t31%",
+					"Midori\t20%",
+					"Scotch (blended)\t43%",
+					"Scotch (single malt)\t46%",
+					"Cognac\t40%",
+					"Armagnac\t40%",
+					"Fernet-Branca\t39%",
+					"Domaine de Canton\t28%",
+					"King's Ginger\t41%",
+					"Frangelico\t20%",
+					"Cynar\t16.5%",
+					"Jägermeister\t35%",
+					"Ancho Reyes\t40%",
+					"Ancho Reyes Verde\t40%",
+					"Mezcal\t42%",
+					"Amaro Averna\t29%",
+					"Tuaca\t35%",
+					"Apple Schnapps\t21%",
+					"Amaro Nonino\t35%",
+					"Amaro Sfumato\t20%",
+					"Amaro Braulio\t21%",
+					"Batavia Arrack\t50%",
+					"Cocchi Americano\t16.5%",
+					"Strega\t40%",
+					"Aperol\t11%",
+					"Punt e Mes\t16%",
+					"Nocino\t32%",
+					"Galliano\t42.3%",
+					"Pama\t17%",
+					"Crème de Mûre\t20%",
+					"Crème de Pamplemousse\t16%",
+					"Coconut Liqueur\t30%",
+					"Blanc Vermouth\t16%",
+					"Suze\t20%",
+					"Amaro Montenegro\t23%",
+					"Becherovka\t38%",
+					"Licor 43\t31%",
+					"Drambuie\t40%",
+					"Gin (St. George Terroir)\t45%",
+					"Gin (Bombay Sapphire)\t42%",
+					"Gin (Hendrick's)\t44%",
+					"NOLA Coffee Liqueur\t25%",
+					"Swedish Punsch\t26%",
+					"Praline Liqueur\t21%",
+					"Bärenjäger\t35%",
+					"Zwack\t40%",
+					"Maurin Quina\t16%",
+					"Baileys\t17%"
+				];
+				
+				const timeLimit = 60*1000;  //1 minute
+				let withinTimeLimit = false;
+				
+				document.getElementById("selectButton").addEventListener("click", function () {
+					if (withinTimeLimit) {
+						displayTimeLimitMessage();
+						return;
+					}
+					
+					let alcohol = alcohols[Math.floor(Math.random() * alcohols.length)].split("\t");
+					document.getElementById("resultName").textContent = alcohol[0];
+					document.getElementById("resultAlcohol").textContent = alcohol[1];
+					
+					document.getElementById("resultWrapper").style.display = "";
+					
+					withinTimeLimit = true;
+					setTimeout(function () {
+						withinTimeLimit = false;
+						hideTimeLimitMessage();
+					}, timeLimit);
+				});
+				
+				function displayTimeLimitMessage() {
+					document.getElementById("timeLimitMessage").style.display = "";
+				}
+				
+				function hideTimeLimitMessage() {
+					document.getElementById("timeLimitMessage").style.display = "none";
+				}
+			});
 		</script>
 		<style>
 			* {
 				box-sizing: border-box;
+				text-align: center;
+				font-family: sans-serif;
+			}
+			#sectionWrapper>* {
+				margin-top: 20px;
+				margin-bottom: 20px;
+			}
+			#timeLimitMessage {
+				color: red;
+			}
+			#resultWrapper>* {
+				margin-top: 8px;
+				margin-bottom: 8px;
+			}
+			#resultName {
+				font-weight: bold;
+			}
+			#resultAlcohol {
+				margin-left: 8px;
+				font-size: smaller;
+				vertical-align: baseline;
 			}
 		</style>
 	</head>
 	<body>
-		<p>I'm a star! I'm on top! Somebody bring me some ham!</p>
+		<div id="sectionWrapper">
+			<div>
+				<button id="selectButton">Select Random Alcohol</button>
+			</div>
+			<div id="resultWrapper" style="display: none;">
+				<span id="resultName"></span>
+				<span id="resultAlcohol"></span>
+			</div>
+			<div id="timeLimitMessage" style="display: none;">
+				No cheating!
+			</div>
+		</div>
 	</body>
 </html>
