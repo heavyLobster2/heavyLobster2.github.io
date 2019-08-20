@@ -93,7 +93,7 @@
 				
 				document.getElementById("selectButton").addEventListener("click", function (e) {
 					selectAlcohol();
-					e.target.blur();
+					document.getElementById("focuser").focus();
 				});
 				
 				function selectAlcohol() {
@@ -157,6 +157,7 @@
 		</style>
 	</head>
 	<body>
+		<div id="focuser" tabindex="0" autofocus></div>
 		<div id="sectionWrapper">
 			<div>
 				<button id="selectButton">Random Alcohol</button>
