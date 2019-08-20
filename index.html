@@ -91,7 +91,12 @@
 				const timeLimit = 60*1000;  //1 minute
 				let withinTimeLimit = false;
 				
-				document.getElementById("selectButton").addEventListener("click", function () {
+				document.getElementById("selectButton").addEventListener("click", function (e) {
+					selectAlcohol();
+					e.target.blur();
+				});
+				
+				function selectAlcohol() {
 					if (withinTimeLimit) {
 						displayTimeLimitMessage();
 						return;
@@ -108,7 +113,7 @@
 						withinTimeLimit = false;
 						hideTimeLimitMessage();
 					}, timeLimit);
-				});
+				}
 				
 				function displayTimeLimitMessage() {
 					document.getElementById("timeLimitMessage").style.display = "";
