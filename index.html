@@ -93,26 +93,25 @@
 				
 				document.getElementById("selectButton").addEventListener("click", function (e) {
 					selectAlcohol();
-					document.getElementById("focuser").focus();
+					e.target.blur();
 				});
 				
 				function selectAlcohol() {
 					if (withinTimeLimit) {
 						displayTimeLimitMessage();
-						return;
+					} else {
+						let alcohol = alcohols[Math.floor(Math.random() * alcohols.length)].split("\t");
+						document.getElementById("resultName").textContent = alcohol[0];
+						document.getElementById("resultAlcohol").textContent = alcohol[1];
+						
+						document.getElementById("resultWrapper").style.display = "";
+						
+						withinTimeLimit = true;
+						setTimeout(function () {
+							withinTimeLimit = false;
+							hideTimeLimitMessage();
+						}, timeLimit);
 					}
-					
-					let alcohol = alcohols[Math.floor(Math.random() * alcohols.length)].split("\t");
-					document.getElementById("resultName").textContent = alcohol[0];
-					document.getElementById("resultAlcohol").textContent = alcohol[1];
-					
-					document.getElementById("resultWrapper").style.display = "";
-					
-					withinTimeLimit = true;
-					setTimeout(function () {
-						withinTimeLimit = false;
-						hideTimeLimitMessage();
-					}, timeLimit);
 				}
 				
 				function displayTimeLimitMessage() {
@@ -132,7 +131,7 @@
 				font-size: 36pt;
 			}
 			#selectButton {
-				padding: 8px;
+				padding: 16px;
 			}
 			#sectionWrapper>* {
 				margin-top: 64px;
@@ -157,7 +156,6 @@
 		</style>
 	</head>
 	<body>
-		<div id="focuser" tabindex="0" autofocus></div>
 		<div id="sectionWrapper">
 			<div>
 				<button id="selectButton">Random Alcohol</button>
