@@ -6,90 +6,89 @@
 		<script>
 			document.addEventListener("DOMContentLoaded", function () {
 				"use strict";
+				const timeLimit = 30;
+				const resetTime = 12 * 60 * 60;
 				
 				let alcohols = [
-					"Gin – Broker's\t47%",
-					"Maraschino Liqueur\t32%",
-					"Crème de Violette (inférieur)\t22%",
-					"St-Germain\t20%",
-					"Green Chartreuse\t55%",
-					"White Rum\t40%",
-					"Dark Rum\t40%",
-					"Blackstrap Rum\t40%",
-					"Chambord\t16.5%",
-					"Blanco Tequila\t40%",
-					"Reposado Tequila\t40%",
-					"Cointreau\t40%",
-					"Vodka\t40%",
-					"Kahlúa\t20%",
-					"Kahlúa Chili Chocolate\t20%",
-					"Rye Whiskey – Rittenhouse\t50%",
-					"Rye Whiskey – Bulleit\t45%",
-					"Bénédictine\t40%",
-					"Sweet Vermouth\t16.5%",
-					"Bourbon – Buffalo Trace\t45%",
-					"Bourbon – Woodford Reserve Double Oaked\t45.2%",
-					"Cherry Liqueur\t24%",
-					"Amaretto\t24%",
-					"Dry Vermouth\t17.5%",
-					"Campari\t24%",
-					"Blue Curaçao\t31%",
-					"Midori\t20%",
-					"Scotch – Monkey Shoulder\t43%",
-					"Scotch – Ardbeg 10\t46%",
-					"Calvados\t40%",
-					"Armagnac\t40%",
-					"Fernet-Branca\t39%",
-					"Domaine de Canton\t28%",
-					"King's Ginger\t41%",
-					"Frangelico\t20%",
-					"Cynar\t16.5%",
-					"Jägermeister\t35%",
-					"Ancho Reyes\t40%",
-					"Ancho Reyes Verde\t40%",
-					"Mezcal\t42%",
-					"Amaro Averna\t29%",
-					"Tuaca\t35%",
-					"Apple Schnapps\t21%",
-					"Amaro Nonino\t35%",
-					"Amaro Sfumato Rabarbaro\t20%",
-					"Amaro Braulio\t21%",
-					"Batavia Arrack\t50%",
-					"Cocchi Americano\t16.5%",
-					"Strega\t40%",
-					"Aperol\t11%",
-					"Punt e Mes\t16%",
-					"Nocino\t32%",
-					"Galliano\t42.3%",
-					"Pama\t17%",
-					"Crème de Mûre\t20%",
-					"Crème de Pamplemousse\t16%",
-					"Coconut Liqueur\t30%",
-					"Blanc Vermouth\t16%",
-					"Suze\t20%",
-					"Amaro Montenegro\t23%",
-					"Becherovka\t38%",
-					"Licor 43\t31%",
-					"Drambuie\t40%",
-					"Gin – St. George Terroir\t45%",
-					"Gin – Bombay Sapphire\t42%",
-					"Gin – Hendrick's\t44%",
-					"NOLA Coffee Liqueur\t25%",
-					"Swedish Punsch\t26%",
-					"Praline Pecan Liqueur\t21%",
-					"Bärenjäger\t35%",
-					"Zwack\t40%",
-					"Maurin Quina\t16%",
-					"Baileys\t17%",
-					"Limoncello\t26%",
-					"Liqueur de Poire\t18%",
-					"Macadamia Liqueur\t26.5%",
-					"Zirbenz\t35%",
-					"Absinthe (inférieur)\t66.6%"
+					{ id: "1", name: "Gin – Broker's", abv: 0.47 },
+					{ id: "2", name: "Maraschino Liqueur", abv: 0.32 },
+					{ id: "3", name: "Crème de Violette (inférieur)", abv: 0.22 },
+					{ id: "4", name: "St-Germain", abv: 0.20 },
+					{ id: "5", name: "Green Chartreuse", abv: 0.55 },
+					{ id: "6", name: "White Rum", abv: 0.40 },
+					{ id: "7", name: "Dark Rum", abv: 0.40 },
+					{ id: "8", name: "Blackstrap Rum", abv: 0.40 },
+					{ id: "9", name: "Chambord", abv: 0.165 },
+					{ id: "10", name: "Blanco Tequila", abv: 0.40 },
+					{ id: "11", name: "Reposado Tequila", abv: 0.40 },
+					{ id: "12", name: "Cointreau", abv: 0.40 },
+					{ id: "13", name: "Vodka", abv: 0.40 },
+					{ id: "14", name: "Kahlúa", abv: 0.20 },
+					{ id: "15", name: "Kahlúa Chili Chocolate", abv: 0.20 },
+					{ id: "16", name: "Rye Whiskey – Rittenhouse", abv: 0.50 },
+					{ id: "17", name: "Rye Whiskey – Bulleit", abv: 0.45 },
+					{ id: "18", name: "Bénédictine", abv: 0.40 },
+					{ id: "19", name: "Sweet Vermouth", abv: 0.165 },
+					{ id: "20", name: "Bourbon – Buffalo Trace", abv: 0.45 },
+					{ id: "21", name: "Bourbon – Woodford Reserve Double Oaked", abv: 0.452 },
+					{ id: "22", name: "Cherry Liqueur", abv: 0.24 },
+					{ id: "23", name: "Amaretto", abv: 0.24 },
+					{ id: "24", name: "Dry Vermouth", abv: 0.175 },
+					{ id: "25", name: "Campari", abv: 0.24 },
+					{ id: "26", name: "Blue Curaçao", abv: 0.31 },
+					{ id: "27", name: "Midori", abv: 0.20 },
+					{ id: "28", name: "Scotch – Monkey Shoulder", abv: 0.43 },
+					{ id: "29", name: "Scotch – Ardbeg 10", abv: 0.46 },
+					{ id: "30", name: "Calvados", abv: 0.40 },
+					{ id: "31", name: "Armagnac", abv: 0.40 },
+					{ id: "32", name: "Fernet-Branca", abv: 0.39 },
+					{ id: "33", name: "Domaine de Canton", abv: 0.28 },
+					{ id: "34", name: "King's Ginger", abv: 0.41 },
+					{ id: "35", name: "Frangelico", abv: 0.20 },
+					{ id: "36", name: "Cynar", abv: 0.165 },
+					{ id: "37", name: "Jägermeister", abv: 0.35 },
+					{ id: "38", name: "Ancho Reyes", abv: 0.40 },
+					{ id: "39", name: "Ancho Reyes Verde", abv: 0.40 },
+					{ id: "40", name: "Mezcal", abv: 0.42 },
+					{ id: "41", name: "Amaro Averna", abv: 0.29 },
+					{ id: "42", name: "Tuaca", abv: 0.35 },
+					{ id: "43", name: "Apple Schnapps", abv: 0.21 },
+					{ id: "44", name: "Amaro Nonino", abv: 0.35 },
+					{ id: "45", name: "Amaro Sfumato Rabarbaro", abv: 0.20 },
+					{ id: "46", name: "Amaro Braulio", abv: 0.21 },
+					{ id: "47", name: "Batavia Arrack", abv: 0.50 },
+					{ id: "48", name: "Cocchi Americano", abv: 0.165 },
+					{ id: "49", name: "Strega", abv: 0.40 },
+					{ id: "50", name: "Aperol", abv: 0.11 },
+					{ id: "51", name: "Punt e Mes", abv: 0.16 },
+					{ id: "52", name: "Nocino", abv: 0.32 },
+					{ id: "53", name: "Galliano", abv: 0.423 },
+					{ id: "54", name: "Pama", abv: 0.17 },
+					{ id: "55", name: "Crème de Mûre", abv: 0.20 },
+					{ id: "56", name: "Crème de Pamplemousse", abv: 0.16 },
+					{ id: "57", name: "Coconut Liqueur", abv: 0.30 },
+					{ id: "58", name: "Blanc Vermouth", abv: 0.16 },
+					{ id: "59", name: "Suze", abv: 0.20 },
+					{ id: "60", name: "Amaro Montenegro", abv: 0.23 },
+					{ id: "61", name: "Becherovka", abv: 0.38 },
+					{ id: "62", name: "Licor 43", abv: 0.31 },
+					{ id: "63", name: "Drambuie", abv: 0.40 },
+					{ id: "64", name: "Gin – St. George Terroir", abv: 0.45 },
+					{ id: "65", name: "Gin – Bombay Sapphire", abv: 0.42 },
+					{ id: "66", name: "Gin – Hendrick's", abv: 0.44 },
+					{ id: "67", name: "NOLA Coffee Liqueur", abv: 0.25 },
+					{ id: "68", name: "Swedish Punsch", abv: 0.26 },
+					{ id: "69", name: "Praline Pecan Liqueur", abv: 0.21 },
+					{ id: "70", name: "Bärenjäger", abv: 0.35 },
+					{ id: "71", name: "Zwack", abv: 0.40 },
+					{ id: "72", name: "Maurin Quina", abv: 0.16 },
+					{ id: "73", name: "Baileys", abv: 0.17 },
+					{ id: "74", name: "Limoncello", abv: 0.26 },
+					{ id: "75", name: "Liqueur de Poire", abv: 0.18 },
+					{ id: "76", name: "Macadamia Liqueur", abv: 0.265 },
+					{ id: "77", name: "Zirbenz", abv: 0.35 },
+					{ id: "78", name: "Absinthe (inférieur)", abv: 0.666 }
 				];
-				
-				const timeLimit = 60*1000;  //1 minute
-				let withinTimeLimit = false;
 				
 				document.getElementById("selectButton").addEventListener("click", function (e) {
 					selectAlcohol();
@@ -97,21 +96,35 @@
 				});
 				
 				function selectAlcohol() {
-					if (withinTimeLimit) {
+					let timeLimitAlcohol = isWithinTimeLimit();
+					if (timeLimitAlcohol) {
+						displayResult(timeLimitAlcohol);
 						displayTimeLimitMessage();
-					} else {
-						let alcohol = alcohols[Math.floor(Math.random() * alcohols.length)].split("\t");
-						document.getElementById("resultName").textContent = alcohol[0];
-						document.getElementById("resultAlcohol").textContent = alcohol[1];
-						
-						document.getElementById("resultWrapper").style.display = "";
-						
-						withinTimeLimit = true;
-						setTimeout(function () {
-							withinTimeLimit = false;
-							hideTimeLimitMessage();
-						}, timeLimit);
 					}
+					else {
+						hideTimeLimitMessage();
+						let alcohol = randomAlcohol();
+						if (alcohol) {
+							hideError();
+							displayResult(alcohol);
+							startTimeLimit(alcohol);
+						}
+						else {
+							hideResult();
+							displayError("There are no more alcohols! You have consumed all. Good job.");
+							setRemainingAlcohols(null);
+						}
+					}
+				}
+				
+				function displayResult(alcohol) {
+					document.getElementById("resultName").textContent = alcohol.name;
+					document.getElementById("resultAlcohol").textContent = Math.round(alcohol.abv * 1000) / 10 + "%";
+					document.getElementById("resultWrapper").style.display = "";
+				}
+				
+				function hideResult() {
+					document.getElementById("resultWrapper").style.display = "none";
 				}
 				
 				function displayTimeLimitMessage() {
@@ -120,6 +133,99 @@
 				
 				function hideTimeLimitMessage() {
 					document.getElementById("timeLimitMessage").style.display = "none";
+				}
+				
+				function displayError(error) {
+					let errorEl = document.getElementById("error");
+					errorEl.style.display = "";
+					errorEl.textContent = error;
+				}
+				
+				function hideError() {
+					document.getElementById("error").style.display = "none";
+				}
+				
+				function startTimeLimit(alcohol) {
+					if (timeLimit > 0) {
+						setCookie("timeLimit", alcohol.id, timeLimit);
+					}
+				}
+				
+				function isWithinTimeLimit() {
+					let timeLimitId = getCookie("timeLimit");
+					if (!timeLimitId) { return null; }
+					return alcohols.find(function (alcohol) {
+						if (alcohol.id === timeLimitId) { return true; }
+					});
+				}
+				
+				function randomAlcohol() {
+					let remaining = getRemainingAlcohols();
+					if (!remaining || remaining.length === 0) {
+						setRemainingAlcohols(null);  //reset
+						return null;
+					}
+					let index = Math.floor(Math.random() * remaining.length);
+					let alcohol = remaining[index];
+					remaining.splice(index, 1);
+					setRemainingAlcohols(remaining);
+					return alcohol;
+				}
+				
+				function getRemainingAlcohols() {
+					let remaining = getCookie("remaining");
+					if (remaining !== null) {
+						if (remaining.length > 0) {
+							return remaining.split(",").map(function (id) {
+								return alcohols.find(function (alcohol) {
+									if (alcohol.id === id) { return true }
+									else { return false; }
+								});
+							});
+						}
+						else {
+							return [];
+						}
+					}
+					else {
+						return alcohols.slice();
+					}
+				}
+				
+				function setRemainingAlcohols(remaining) {
+					if (remaining) {
+						setCookie("remaining", remaining.map(function (alcohol) {
+							return alcohol.id;
+						}).join(","), resetTime);
+					}
+					else {
+						clearCookie("remaining");
+					}
+				}
+				
+				function setCookie(name, value, seconds) {
+					let expires = "";
+					if (seconds) {
+						let date = new Date();
+						date.setTime(date.getTime() + (seconds * 1000));
+						expires = "; expires=" + date.toGMTString();
+					}
+					document.cookie = name + "=" + value + expires + "; path=/";
+				}
+				
+				function getCookie(name) {
+					let nameEQ = name + "=";
+					let ca = document.cookie.split(";");
+					for (let i = 0; i < ca.length; i++) {
+						let c = ca[i];
+						while (c.charAt(0) === ' ') { c = c.substring(1, c.length); }
+						if (c.indexOf(nameEQ) === 0) { return c.substring(nameEQ.length, c.length); }
+					}
+					return null;
+				}
+				
+				function clearCookie(name) {
+					setCookie(name, "", -1);
 				}
 			});
 		</script>
@@ -167,6 +273,7 @@
 			<div id="timeLimitMessage" style="display: none;">
 				Go drink your shot.
 			</div>
+			<div id="error" style="display: none;"></div>
 		</div>
 	</body>
 </html>
